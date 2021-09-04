@@ -86,7 +86,7 @@ static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmut
 static const char *voldowncmd[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *brupcmd[] = { "sudo", "xbacklight", "-inc", "5", NULL };
 static const char *brdowncmd[] = { "sudo", "xbacklight", "-dec", "5", NULL };
-static const char *cmdprintscreen[] = { "scrot", "--select", "--quality", "100", "-e", "mv $f ~/Pictures/screenshots/", NULL };
+static const char *cmdprintscreen[] = { "scrot", "--select", "--quality", "100", "-e", "mv $f ~/pics/screenshots/", NULL };
 
 
 static Key keys[] = {
