@@ -2,7 +2,7 @@
 Personal config files that i use with dwm.
 
 # Dotfiles ( .config )
-![ image ]($HOME/pics/wallpaper/0213.jpg)
+![ desktop image ]($HOME/pics/screenshots/desktop.png)
 
 ## Installation
 you have to install git
