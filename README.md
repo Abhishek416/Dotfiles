@@ -18,8 +18,8 @@ cp -rf dotfiles/* ~/.config/
 
 ## .xinitrc && .zprofile
 copy them from $HOME/.config/x/ && $HOME/.config/zsh/ OR
-create them on your own 
-zprofile recommended to copy
+create them on your own. 
+( zprofile recommended to copy )
 
 ```
 cp $HOME/.config/x/.xinitrc $HOME/
