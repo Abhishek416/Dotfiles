@@ -13,7 +13,7 @@ let g:startify_bookmarks = [
             \ { 'n': '~/.config/nvim' },
             \ { 'pa': '~/mnt/sda6/passwd' },
             \ { 'b': '~/.bashrc' },
-            \ { 'c': '~/Code'},
+            \ { 'c': '~/code'},
             \ { 'd': '~/.config/suckless/dwm-6.2/' },
             \ { 'z': '~/.config/zsh/.zshrc' }
             \ ]

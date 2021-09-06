@@ -12,5 +12,8 @@ libreoffice/
 lvim/
 pcmanfm/
 pulse/
+QtProject.conf
 zoomus.conf
+mimeapps.list
 ranger/plugins/
+vifm/
