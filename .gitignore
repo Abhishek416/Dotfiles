@@ -12,6 +12,7 @@ libreoffice/
 lvim/
 pcmanfm/
 pulse/
+*.conf
 zoomus.conf
 mimeapps.list
 ranger/plugins/
