@@ -13,7 +13,12 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10", "Ubuntu Mono Nerd Font:size=10" };
+static const char *fonts[]          = { "monospace:size=11:antialias=true:autohint=true", 
+																				"Source Code Pro Regular:size=13", 
+																				"JoyPixels:pixelsize=14:antialias=true:autohint=true",
+																				"Hack Nerd Font:pixelsize=12"
+															
+																			};
 static const char dmenufont[]       = "monospace:size=10";
 
 static const char col_1[]  = "#282c34"; /* background color of bar */
