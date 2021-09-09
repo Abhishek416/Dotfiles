@@ -13,7 +13,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=11:antialias=true:autohint=true", 
+static const char *fonts[]          = { "monospace:size=10:antialias=true:autohint=true", 
 																				"Source Code Pro Regular:size=13", 
 																				"JoyPixels:pixelsize=14:antialias=true:autohint=true",
 																				"Hack Nerd Font:pixelsize=12"
