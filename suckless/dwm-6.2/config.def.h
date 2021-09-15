@@ -102,7 +102,7 @@ static Key keys[] = {
 	{ 0, 		XF86XK_AudioRaiseVolume,   spawn, 	{.v = volupcmd } },
 	{ 0, 		XF86XK_MonBrightnessUp,	   spawn, 	{.v = brupcmd } },
 	{ 0, 		XF86XK_MonBrightnessDown,  spawn, 	{.v = brdowncmd } },
-	{ MODKEY|ShiftMask,		XK_r,	   spawn, 	{.v = rngr } },
+	{ MODKEY|ShiftMask,				XK_r,	   spawn, 	{.v = rngr } },
 
 
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
@@ -122,7 +122,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 
 	// Layout Modification 
-	{ MODKEY|ShiftMask,		XK_Tab ,   cyclelayout,	   {.i = +1 } },
+	{ MODKEY|ShiftMask,							XK_Tab ,   cyclelayout,	   {.i = +1 } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
