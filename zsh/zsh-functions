@@ -1,0 +1,33 @@
+# Function to source files if they exist
+function zsh_add_file(){
+  [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
+
+# function zsh_add_plugin() {
+#     local -r plugin_name=$(basename "$1")
+#     local -r plugin_dir="${ZDOTDIR}/plugins/${plugin_name}"
+#     local -r git_url="https://github.com/${1}.git"
+#     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+#     if [ -d "${plugin_dir}" ]; then
+#     # if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+#         # For plugins
+#         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+#         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+#     else
+#         if [ ! git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
+#             echo "failed to git clone '$1'"
+#         fi
+#     fi
+# }
+
+
+function zsh_add_plugin() {
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+        # For plugins
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+    else
+        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+    fi
+}
