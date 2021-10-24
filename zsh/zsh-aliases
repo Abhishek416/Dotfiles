@@ -15,6 +15,8 @@ alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pac
 # alias remarkable_ssh='ssh root@10.11.99.1'
 # alias restream='restream -p'
 
+alias wget="wget --hsts-file ~/.cache/wget/wget-hsts"
+
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
