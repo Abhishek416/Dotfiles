@@ -11,51 +11,43 @@ end
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  -- Information
-  use 'nanotee/nvim-lua-guide'
 
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-  use 'kabouzeid/nvim-lspinstall'
-  use 'glepnir/lspsaga.nvim'
-  use 'onsails/lspkind-nvim'
-  
-  -- Autocomplete
-  use { 'ms-jpq/coq_nvim', branch = 'coq' }
-  use { 'ms-jpq/coq.artifacts', branch= 'artifacts' }
-  use { 'ms-jpq/coq.thirdparty', branch= '3p' }
+  -- DashBoard
+--  use 'glepnir/dashboard-nvim'
 
+ use { 'neoclide/coc.nvim', branch= 'release' }
   -- Debugging
-  use 'mfussenegger/nvim-dap'
+  -- use 'mfussenegger/nvim-dap'
+
+  -- Icons
+ -- use 'kyazdani42/nvim-web-devicons'
 
   -- Explorer
-  use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons', } }
+   use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons', } }
 
   -- StatusLine and Bufferline
-  use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
-  use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
+ use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+ use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
 
-	-- Telescope
-  -- use 'nvim-lua/popup.nvim'
-  -- use 'nvim-lua/plenary.nvim'
-  -- use 'nvim-telescope/telescope.nvim'
-  -- use 'nvim-telescope/telescope-media-files.nvim'
-
-  -- ColorSchemes
-  use 'christianchiarulli/nvcode-color-schemes.vim'
-  use 'norcalli/nvim-colorizer.lua'
-
-
-  -- Treesitter
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'nvim-treesitter/playground'
-  use 'p00f/nvim-ts-rainbow'
-
-  -- General Plugins
-  use 'windwp/nvim-autopairs'
-  -- use 'kevinhwang91/nvim-bqf'
-  use 'unblevable/quick-scope'
-
--- VIM Commentary
-  use 'tpope/vim-commentary'
+  -- colorschemes
+  -- use 'christianchiarulli/nvcode-color-schemes.vim'
+  use 'navarasu/onedark.nvim'
+--  use 'arcticicestudio/nord-vim'
+--  use 'EdenEast/nightfox.nvim'
+--
+--
+--  -- Treesitter
+ use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+--
+---- Telescope
+ use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
+ use 'airblade/vim-rooter'
+--
+--  -- General Plugins
+ use 'voldikss/vim-floaterm' -- Floatterm
+ use 'windwp/nvim-autopairs' -- autopairs
+ use 'lukas-reineke/indent-blankline.nvim' -- indendation
+  use 'tpope/vim-commentary'  -- comments
+--  use {'lukas-reineke/format.nvim'} --format
+ use 'phaazon/hop.nvim'
 end)

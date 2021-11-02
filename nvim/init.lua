@@ -1,22 +1,16 @@
 require('plugins')
 require('keymappings')
-require('colorscheme')
 require('settings')
+require('colorscheme')
 
 -- Plugins
-require('nv-colorizer')
-require('nv-treesitter')
-
-require('nv-nvimtree')
-
-require('nv-lualine')
-require('nv-bufferline')
-
--- require('nv-telescope')
-
-require('nv-autopairs')
-
--- LSP
-require('lsp')
-require('nv-lspinstall')
+require('plug-config/nvimtree')
+require('plug-config/indent-blankline')
+require('plug-config/autopairs')
+require('plug-config/bufferline')
+require('plug-config/lualine')
+require('plug-config/telescope')
+require('plug-config/treesitter')
+require('plug-config/coc')
+require('plug-config/floatterm')
 
