@@ -15,6 +15,10 @@ alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pac
 # alias remarkable_ssh='ssh root@10.11.99.1'
 # alias restream='restream -p'
 
+alias remove="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rnsui"
+alias install="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+alias installed="pacman -Qe | cut -d' ' -f1 | fzf --multi --preview 'pacman -Qi {1}'"
+
 alias wget="wget --hsts-file ~/.cache/wget/wget-hsts"
 
 # Colorize grep output (good for log files)
