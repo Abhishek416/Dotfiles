@@ -5,7 +5,6 @@ setopt appendhistory
 # Enable colors and change prompt:
 autoload -Uz colors && colors
 # PS1="%B%{$fg[blue]%}[ %{$fg[white]%}%M %{$fg[blue]%}] %{$fg[cyan]%}%c%{$reset_color%}%b "
-# PS1="%B%{$fg[blue]%}[ %{$fg[white]%}%M %{$fg[blue]%}] %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )% %{$fg[cyan]%}%c%{$reset_color%}%b "
 
 
 # completions
