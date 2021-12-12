@@ -128,8 +128,8 @@ myAdditionalKeys =
         , ("M-b", sendMessage ToggleStruts) -- Toggle the status bar gap
         , ("M-<Space>", sendMessage NextLayout) -- Switch to next layout
         , ("M-t", withFocused $ windows . W.sink)
-	, ("M-m", withFocused minimizeWindow )
-	, ("M-S-m", withLastMinimized maximizeWindow)
+	      , ("M-m", withFocused minimizeWindow )
+	      , ("M-S-m", withLastMinimized maximizeWindow)
         , ("M-,", sendMessage (IncMasterN 1)) -- Increase # of clients master
         , ("M-.",sendMessage (IncMasterN (-1))) -- Decrease # of clients master
 
