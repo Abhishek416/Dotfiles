@@ -30,7 +30,8 @@
     "html",
     "css",
     "cpp",
-    "python"
+    "python",
+    "php"
   ],
   "emmet.includeLanguages": {
     "vue-html": "html",

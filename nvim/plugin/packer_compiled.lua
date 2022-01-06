@@ -57,7 +57,7 @@ end
 time([[Luarocks path setup]], false)
 time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
-  local success, result = pcall(loadstring(s))
+  local success, result = pcall(loadstring(s), name, _G.packer_plugins[name])
   if not success then
     vim.schedule(function()
       vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
@@ -69,6 +69,21 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["AutoSave.nvim"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/AutoSave.nvim",
+    url = "https://github.com/Pocco81/AutoSave.nvim"
+  },
+  ["Comment.nvim"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
+  LuaSnip = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    url = "https://github.com/L3MON4D3/LuaSnip"
+  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/barbar.nvim",
@@ -79,10 +94,25 @@ _G.packer_plugins = {
     path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/coc.nvim",
     url = "https://github.com/neoclide/coc.nvim"
   },
-  ["hop.nvim"] = {
+  coq_nvim = {
     loaded = true,
-    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/hop.nvim",
-    url = "https://github.com/phaazon/hop.nvim"
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/coq_nvim",
+    url = "https://github.com/ms-jpq/coq_nvim"
+  },
+  ["darkplus.nvim"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/darkplus.nvim",
+    url = "https://github.com/lunarvim/darkplus.nvim"
+  },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/friendly-snippets",
+    url = "https://github.com/rafamadriz/friendly-snippets"
+  },
+  ["impatient.nvim"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
   },
   ["indent-blankline.nvim"] = {
     loaded = true,
@@ -109,6 +139,16 @@ _G.packer_plugins = {
     path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring",
+    url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
+  },
+  ["nvim-ts-rainbow"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
+    url = "https://github.com/p00f/nvim-ts-rainbow"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -129,25 +169,30 @@ _G.packer_plugins = {
     path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["popup.nvim"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/popup.nvim",
+    url = "https://github.com/nvim-lua/popup.nvim"
+  },
+  ["project.nvim"] = {
+    loaded = true,
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/project.nvim",
+    url = "https://github.com/ahmedkhalf/project.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
-  ["vim-commentary"] = {
+  ["toggleterm.nvim"] = {
     loaded = true,
-    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/vim-commentary",
-    url = "https://github.com/tpope/vim-commentary"
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["vim-floaterm"] = {
+  ["vim-enfocado"] = {
     loaded = true,
-    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/vim-floaterm",
-    url = "https://github.com/voldikss/vim-floaterm"
-  },
-  ["vim-rooter"] = {
-    loaded = true,
-    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/vim-rooter",
-    url = "https://github.com/airblade/vim-rooter"
+    path = "/home/abhishek/.local/share/nvim/site/pack/packer/start/vim-enfocado",
+    url = "https://github.com/wuelnerdotexe/vim-enfocado"
   }
 }
 

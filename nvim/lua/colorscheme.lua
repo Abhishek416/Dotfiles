@@ -1,3 +1,8 @@
-vim.cmd('colorscheme onedark')
-vim.g.onedark_style = 'darker'
---vim.cmd('let g:nvcode=256')
+vim.cmd [[
+try
+  colorscheme darkplus
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+]]
