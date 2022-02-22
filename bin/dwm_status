@@ -102,12 +102,13 @@ clock() {
 
 battery() {
 	bat=$(cat "/sys/class/power_supply/BAT1/capacity")
-	echo   " $bat"
+  stat=$(cat "/sys/class/power_supply/BAT1/status")
+	echo   " $bat" "$stat"
 }
 
 main() {
 	while true; do
-		xsetroot -name " $(usbmon) $(cpu)| $(ram)| $(volume_alsa)| $(battery)| $(clock)"
+    xsetroot -name " $(usbmon) $(network)| $(cpu)| $(ram)| $(volume_alsa)| $(battery)| $(clock)"
 		sleep 1
 	done
 }
