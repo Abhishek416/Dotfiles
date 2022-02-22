@@ -35,6 +35,8 @@ fi
 [ -f /etc/xprofile ] && source /etc/xprofile
 [ -f ~/.config/x/xprofile ] && source ~/.config/x/xprofile
 
-$HOME/bin/dwm_status & 
+dwm_status &
+xwallpaper --maximize ~/pics/wall/wall-4ylkod.jpg
 exec dwm
-
+#exec startxfce4
+# exec xmonad

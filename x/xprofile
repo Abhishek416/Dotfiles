@@ -2,15 +2,16 @@
 # nm-applet &
 
 # resore your wallpaper
-nitrogen --restore
+# nitrogen --restore  # if you are using nitrogen
+# feh --recursive --bg-fill --randomize ~/pics/wallpapers/  # change directory to yours
 
 # Compistor
-picom -b 
+# picom -b 
 
 # Environment variables set everywhere 
-export EDITOR="nvim"
-export TERMINAL="set"
-export BROWSER="brave"
+#export EDITOR="nvim"
+#export TERMINAL="set"
+#export BROWSER="brave"
 
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -19,7 +20,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
+export GTK2_RC_FILES="XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 
 # zsh config dir
 # export ZDOTDIR=$HOME/.config/zsh
-
