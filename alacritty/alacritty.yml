@@ -7,7 +7,7 @@ window:
   padding:
     x: 6
     y: 6
-  dynamic_padding: false
+  dynamic_padding: true
   title: Alacritty
   class:
     instance: Alacritty
@@ -24,8 +24,8 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    family: Terminus
-    # family: Source Code Pro
+    # family: Terminus
+    family: Source Code Pro
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack Nerd Font
@@ -40,7 +40,8 @@ font:
 
   # Bold font face
   bold:
-    family: Terminus
+    # family: Terminus
+    family: Source Code Pro
     # family:  Liberation Mono 
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
@@ -91,7 +92,7 @@ font:
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
-    x: 1
+    x: 0
     y: 1
 
 # If `true`, bold text is drawn using the bright color variants.
@@ -152,8 +153,8 @@ colors:
     white:    '0x9a9a9a'
 
 # Background opacity
-background_opacity: 0.85
-# background_opacity: 0.80
+# background_opacity: 0.95
+window.opacity: 0.5
 
 #selection:
 semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
