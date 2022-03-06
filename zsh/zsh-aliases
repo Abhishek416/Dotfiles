@@ -1,6 +1,4 @@
 alias lg='lazygit'
-alias nsivpn="sudo openfortivpn 203.100.67.242:8443 -u abhishek.sharma --trusted-cert c2f38be59c4d4ea6d57be20006b9a0c10fdddb543722069f465f5b503eef96e2"
-
 
 # Packages Related
 alias download="sudo pacman -Sy"
