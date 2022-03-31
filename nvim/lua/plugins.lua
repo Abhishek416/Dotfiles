@@ -55,8 +55,17 @@ return require('packer').startup(function()
   -- Status Line
   use { 'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
 
+  -- telescope
   use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
   use 'Pocco81/AutoSave.nvim'
+
+  -- Git
+  use "lewis6991/gitsigns.nvim"
+
+  -- Debugger ( Debug Adapter Protocol )
+ --use 'mfussenegger/nvim-dap'
+ --use "Pocco81/DAPInstall.nvim"
+ --use { "rcarriga/nvim-dap-ui" }
 
   --  use 'OmniSharp/omnisharp-vim'
   --use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}

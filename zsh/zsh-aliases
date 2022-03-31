@@ -1,7 +1,9 @@
 alias lg='lazygit'
+alias nsivpn="sudo openfortivpn 203.100.67.242:8443 -u abhishek.sharma --trusted-cert c2f38be59c4d4ea6d57be20006b9a0c10fdddb543722069f465f5b503eef96e2"
+
 
 # Packages Related
-alias download="sudo pacman -Sy"
+alias download="sudo pacman -S --noconfirm"
 alias update="sudo pacman -Syy"
 alias upgrade="sudo pacman -Syu --noconfirm"
 alias remove="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rnsu"
@@ -16,8 +18,8 @@ alias wget="wget --hsts-file ~/.cache/wget/wget-hsts"
 
 # rc files
 alias xrc='cd ~/.config/x/ && vim xinitrc'
-alias vrc='cd ~/.config/zsh && nvim ~/.vim/vimrc'
-alias nrc='cd ~/.config/zsh && nvim ~/.config/nvim/'
+alias vrc='cd ~/.vim/ && nvim ~/.vim/vimrc'
+alias nrc='cd ~/.config/nvim && nvim ~/.config/nvim/'
 alias zrc='cd ~/.config/zsh && nvim ~/.config/zsh/.zshrc'
 
 # Cd aliases
@@ -40,7 +42,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # confirm before overwriting something
-alias rm='rm -i'
+alias rm='trash -i'
 alias cp='/usr/local/bin/cp -giR'
 alias mv='/usr/local/bin/mv -gi'
 

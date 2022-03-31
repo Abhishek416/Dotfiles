@@ -35,7 +35,14 @@ fi
 [ -f /etc/xprofile ] && source /etc/xprofile
 [ -f ~/.config/x/xprofile ] && source ~/.config/x/xprofile
 
-dwm_status &
+xwallpaper --zoom ~/pics/wall1/a-17.png
+# while true; do
+	# log stderror to a file
+	# dwm 2> ~/.dwm.log
+	# no error loggin
+	# dwm > /dev/null 2>&1
+# done
 exec dwm
-#exec startxfce4
+
+# exec startxfce4
 # exec xmonad

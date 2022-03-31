@@ -13,6 +13,7 @@
 #export TERMINAL="set"
 #export BROWSER="brave"
 
+dwmbar &
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
 
