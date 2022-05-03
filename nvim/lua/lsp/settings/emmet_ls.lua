@@ -1,3 +1,3 @@
 return {
-  filetypes = { "html", "css", "razor" }
+  filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
 }

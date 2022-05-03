@@ -1,18 +1,22 @@
-require("plugins")
-require("options")
-require("keymappings")
+require "plugins"
+require "options"
+require "keymappings"
 
 -- Plugins
-require("lsp")
-require("plugins/cmp")
-require("plugins/barbar")
-require("plugins/gitsigns")
-require("plugins/autosave")
-require("plugins/nvim-tree")
---require("plugins/nvim-dap")
---require("plugins/nvim-dap-ui")
-require("plugins/telescope")
-require("plugins/autopairs")
-require("plugins/colorscheme")
-require("plugins/indent-line")
-require("plugins/nvim-comments")
+require "lsp"
+require "plugins/cmp"
+require "plugins/bufferline"
+require "plugins/lualine"
+require "plugins/autosave"
+require "plugins/gitsigns"
+require "plugins/nvim-tree"
+require "plugins/telescope"
+require "plugins/impatient"
+require "plugins/autopairs"
+require 'plugins/toggleterm'
+require "plugins/indent-line"
+require "plugins/colorscheme"
+require "plugins/autocommands"
+require "plugins/nvim-comments"
+--require "plugins/nvim-dap"
+--require "plugins/nvim-dap-ui"

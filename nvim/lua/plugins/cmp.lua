@@ -103,7 +103,6 @@ cmp.setup {
       vim_item.menu = ({
         nvim_lua = "[LUA]",
         nvim_lsp = "[LSP]",
-        --luasnip = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
       })[entry.source.name]
@@ -115,7 +114,6 @@ cmp.setup {
   sources = {
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
-    --{ name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
   },
@@ -123,9 +121,14 @@ cmp.setup {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documenation = cmp.config.window.bordered(),
   },
+
+  --documentation = {
+  --  border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --},
   experimental = {
     ghost_text = false,
     native_menu = false,
