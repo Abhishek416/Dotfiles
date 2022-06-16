@@ -16,14 +16,14 @@ local options = {
   splitbelow = true,
   splitright = true,
   swapfile = false,
-  termguicolors = false,
+  termguicolors = true,
   timeoutlen = 1000,
   undofile = true,
   writebackup = false,
   expandtab = true,
   shiftwidth = 2,
   tabstop = 2,
-  cursorline = false,
+  cursorline = true,
   number = true,
   relativenumber = true,
   numberwidth = 3,
@@ -35,7 +35,11 @@ local options = {
 }
 
 vim.opt.shortmess:append "c"
+vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.cmd [[set iskeyword+=-]]
+vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+

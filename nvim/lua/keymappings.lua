@@ -16,7 +16,7 @@ vim.g.maplocalleader = " "
 --   command_mode = "c",
 
 -- {{ Normal }}
--- explorer
+-- NerdTree
 --keymap("n", "<Leader>e", ":CHADopen<CR>", opts)
 keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 
@@ -60,12 +60,21 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- Commentary
---keymap("n", "<Leader>/", ":CommentToggle<CR>", opts)
---keymap("v", "<Leader>", ":'<,'>CommentToggle<CR>", opts)
+-- Telescope
+keymap("n", "<leader>ff", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<CR>", opts)
+keymap("n", "<leader>ft", "<cmd>Telescope live_grep<CR>", opts)
+keymap("n", "<leader>fb", "<cmd>Telescope buffers<CR>", opts)
 
-keymap("n", "<leader>ff", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
+-- Lsp
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
+keymap("n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts)
+keymap("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", opts)
+keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts)
+keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+
+-- GitSigns
+keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 ---- keymap("n", "<leader>fs", ":TZFocus<CR>", { noremap = true, silent = true})
 --keymap("n", "<F5>", ":lua require'dap'.continue()<CR>", opts)
