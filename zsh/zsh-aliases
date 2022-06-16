@@ -14,7 +14,7 @@ alias installed="pacman -Qe | cut -d' ' -f1 | fzf --multi --preview 'pacman -Qi 
 alias v='vim'
 alias n="nvim"
 
-alias wget="wget --hsts-file ~/.cache/wget/wget-hsts"
+alias wget="wget --no-hsts"
 
 # rc files
 alias xrc='cd ~/.config/x/ && vim xinitrc'
