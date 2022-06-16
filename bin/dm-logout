@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# dmenu theming
+lines="-l 4"
+font="-fn Inconsolata-9"
+colors="-nb #2C323E -nf #9899a0 -sb #BF616A -sf #2C323E"
+
+first_prompt="what you want?"
+opt1="\nReboot\nPower Off\nSuspend\n"
+opt2="Yes\nNo"
+
+
+ask() {
+    answer="$( echo -e $1 | dmenu -i -p "$2" $lines $colors $font )"
+}
+
+ask "$opt1" "$first_prompt"
+
+case $answer in
+    "Reboot")
+        ask "$opt2" "Do you really want to restart the system?"
+        if [[ $answer == "Yes" ]]; then
+            systemctl reboot
+        fi
+        exit 0
+        ;;
+    "Power Off")
+        ask "$opt2" "Do you really want to turn off your computer?"
+        if [[ $answer == "Yes" ]]; then
+            systemctl poweroff
+        fi
+        exit 0
+        ;;
+    "Suspend")
+        ask "$opt2" "Do you really want to suspend"
+        if [[ $answer == "Yes" ]]; then
+            systemctl suspend
+        fi
+        exit 0
+        ;;
+esac
+
+exit 0
