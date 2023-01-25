@@ -58,6 +58,13 @@ static Clr *scheme[SchemeLast];
 static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
 static char *(*fstrstr)(const char *, const char *) = strstr;
 
+static unsigned int
+textw_clamp(const char *str, unsigned int n)
+{
+	unsigned int w = drw_fontset_getwidth_clamp(drw, str, n) + lrpad;
+	return MIN(w, n);
+}
+
 static void
 appenditem(struct item *item, struct item **list, struct item **last)
 {
@@ -77,15 +84,15 @@ calcoffsets(void)
 	int i, n;
 
 	if (lines > 0)
-		n = lines * columns * bh;
+		n = lines * bh;
 	else
 		n = mw - (promptw + inputw + TEXTW("<") + TEXTW(">"));
 	/* calculate which items will begin the next page and previous page */
 	for (i = 0, next = curr; next; next = next->right)
-		if ((i += (lines > 0) ? bh : MIN(TEXTW(next->text), n)) > n)
+		if ((i += (lines > 0) ? bh : textw_clamp(next->text, n)) > n)
 			break;
 	for (i = 0, prev = curr; prev && prev->left; prev = prev->left)
-		if ((i += (lines > 0) ? bh : MIN(TEXTW(prev->left->text), n)) > n)
+		if ((i += (lines > 0) ? bh : textw_clamp(prev->left->text, n)) > n)
 			break;
 }
 
@@ -97,19 +104,29 @@ cleanup(void)
 	XUngrabKey(dpy, AnyKey, AnyModifier, root);
 	for (i = 0; i < SchemeLast; i++)
 		free(scheme[i]);
+	for (i = 0; items && items[i].text; ++i)
+		free(items[i].text);
+	free(items);
 	drw_free(drw);
 	XSync(dpy, False);
 	XCloseDisplay(dpy);
 }
 
 static char *
-cistrstr(const char *s, const char *sub)
+cistrstr(const char *h, const char *n)
 {
-	size_t len;
+	size_t i;
 
-	for (len = strlen(sub); *s; s++)
-		if (!strncasecmp(s, sub, len))
-			return (char *)s;
+	if (!n[0])
+		return (char *)h;
+
+	for (; *h; ++h) {
+		for (i = 0; n[i] && tolower((unsigned char)n[i]) ==
+		            tolower((unsigned char)h[i]); ++i)
+			;
+		if (n[i] == '\0')
+			return (char *)h;
+	}
 	return NULL;
 }
 
@@ -152,15 +169,9 @@ drawmenu(void)
 	}
 
 	if (lines > 0) {
-		/* draw grid */
-		int i = 0;
-		for (item = curr; item != next; item = item->right, i++)
-			drawitem(
-				item,
-				x + ((i / lines) *  ((mw - x) / columns)),
-				y + (((i % lines) + 1) * bh),
-				(mw - x) / columns
-			);
+		/* draw vertical list */
+		for (item = curr; item != next; item = item->right)
+			drawitem(item, x, y += bh, mw - x);
 	} else if (matches) {
 		/* draw horizontal list */
 		x += inputw;
@@ -171,7 +182,7 @@ drawmenu(void)
 		}
 		x += w;
 		for (item = curr; item != next; item = item->right)
-			x = drawitem(item, x, 0, MIN(TEXTW(item->text), mw - x - TEXTW(">")));
+			x = drawitem(item, x, 0, textw_clamp(item->text, mw - x - TEXTW(">")));
 		if (next) {
 			w = TEXTW(">");
 			drw_setscheme(drw, scheme[SchemeNorm]);
@@ -231,7 +242,7 @@ match(void)
 	/* separate input text into tokens to be matched individually */
 	for (s = strtok(buf, " "); s; tokv[tokc - 1] = s, s = strtok(NULL, " "))
 		if (++tokc > tokn && !(tokv = realloc(tokv, ++tokn * sizeof *tokv)))
-			die("cannot realloc %u bytes:", tokn * sizeof *tokv);
+			die("cannot realloc %zu bytes:", tokn * sizeof *tokv);
 	len = tokc ? strlen(tokv[0]) : 0;
 
 	matches = lprefix = lsubstr = matchend = prefixend = substrend = NULL;
@@ -317,8 +328,6 @@ keypress(XKeyEvent *ev)
 	int len;
 	KeySym ksym;
 	Status status;
-	int i, offscreen = 0;
-	struct item *tmpsel;
 
 	len = XmbLookupString(xic, ev, buf, sizeof buf, &ksym, &status);
 	switch (status) {
@@ -368,9 +377,11 @@ keypress(XKeyEvent *ev)
 			                  utf8, utf8, win, CurrentTime);
 			return;
 		case XK_Left:
+		case XK_KP_Left:
 			movewordedge(-1);
 			goto draw;
 		case XK_Right:
+		case XK_KP_Right:
 			movewordedge(+1);
 			goto draw;
 		case XK_Return:
@@ -404,10 +415,11 @@ keypress(XKeyEvent *ev)
 	switch(ksym) {
 	default:
 insert:
-		if (!iscntrl(*buf))
+		if (!iscntrl((unsigned char)*buf))
 			insert(buf, len);
 		break;
 	case XK_Delete:
+	case XK_KP_Delete:
 		if (text[cursor] == '\0')
 			return;
 		cursor = nextrune(+1);
@@ -418,6 +430,7 @@ insert:
 		insert(NULL, nextrune(-1) - cursor);
 		break;
 	case XK_End:
+	case XK_KP_End:
 		if (text[cursor] != '\0') {
 			cursor = strlen(text);
 			break;
@@ -437,6 +450,7 @@ insert:
 		cleanup();
 		exit(1);
 	case XK_Home:
+	case XK_KP_Home:
 		if (sel == matches) {
 			cursor = 0;
 			break;
@@ -445,27 +459,7 @@ insert:
 		calcoffsets();
 		break;
 	case XK_Left:
-		if (columns > 1) {
-			if (!sel)
-				return;
-			tmpsel = sel;
-			for (i = 0; i < lines; i++) {
-				if (!tmpsel->left || tmpsel->left->right != tmpsel) {
-					if (offscreen)
-						break;
-					return;
-				}
-				if (tmpsel == curr)
-					offscreen = 1;
-				tmpsel = tmpsel->left;
-			}
-			sel = tmpsel;
-			if (offscreen) {
-				curr = prev;
-				calcoffsets();
-			}
-			break;
-		}
+	case XK_KP_Left:
 		if (cursor > 0 && (!sel || !sel->left || lines > 0)) {
 			cursor = nextrune(-1);
 			break;
@@ -474,18 +468,21 @@ insert:
 			return;
 		/* fallthrough */
 	case XK_Up:
+	case XK_KP_Up:
 		if (sel && sel->left && (sel = sel->left)->right == curr) {
 			curr = prev;
 			calcoffsets();
 		}
 		break;
 	case XK_Next:
+	case XK_KP_Next:
 		if (!next)
 			return;
 		sel = curr = next;
 		calcoffsets();
 		break;
 	case XK_Prior:
+	case XK_KP_Prior:
 		if (!prev)
 			return;
 		sel = curr = prev;
@@ -502,27 +499,7 @@ insert:
 			sel->out = 1;
 		break;
 	case XK_Right:
-		if (columns > 1) {
-			if (!sel)
-				return;
-			tmpsel = sel;
-			for (i = 0; i < lines; i++) {
-				if (!tmpsel->right ||  tmpsel->right->left != tmpsel) {
-					if (offscreen)
-						break;
-					return;
-				}
-				tmpsel = tmpsel->right;
-				if (tmpsel == next)
-					offscreen = 1;
-			}
-			sel = tmpsel;
-			if (offscreen) {
-				curr = next;
-				calcoffsets();
-			}
-			break;
-		}
+	case XK_KP_Right:
 		if (text[cursor] != '\0') {
 			cursor = nextrune(+1);
 			break;
@@ -531,6 +508,7 @@ insert:
 			return;
 		/* fallthrough */
 	case XK_Down:
+	case XK_KP_Down:
 		if (sel && sel->right && (sel = sel->right) == next) {
 			curr = next;
 			calcoffsets();
@@ -539,9 +517,9 @@ insert:
 	case XK_Tab:
 		if (!sel)
 			return;
-		strncpy(text, sel->text, sizeof text - 1);
-		text[sizeof text - 1] = '\0';
-		cursor = strlen(text);
+		cursor = strnlen(sel->text, sizeof text - 1);
+		memcpy(text, sel->text, cursor);
+		text[cursor] = '\0';
 		match();
 		break;
 	}
@@ -571,29 +549,22 @@ paste(void)
 static void
 readstdin(void)
 {
-	char buf[sizeof text], *p;
-	size_t i, imax = 0, size = 0;
-	unsigned int tmpmax = 0;
+	char *line = NULL;
+	size_t i, junk, size = 0;
+	ssize_t len;
 
 	/* read each line from stdin and add it to the item list */
-	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
+	for (i = 0; (len = getline(&line, &junk, stdin)) != -1; i++, line = NULL) {
 		if (i + 1 >= size / sizeof *items)
 			if (!(items = realloc(items, (size += BUFSIZ))))
-				die("cannot realloc %u bytes:", size);
-		if ((p = strchr(buf, '\n')))
-			*p = '\0';
-		if (!(items[i].text = strdup(buf)))
-			die("cannot strdup %u bytes:", strlen(buf) + 1);
+				die("cannot realloc %zu bytes:", size);
+		if (line[len - 1] == '\n')
+			line[len - 1] = '\0';
+		items[i].text = line;
 		items[i].out = 0;
-		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
-		if (tmpmax > inputw) {
-			inputw = tmpmax;
-			imax = i;
-		}
 	}
 	if (items)
 		items[i].text = NULL;
-	inputw = items ? TEXTW(items[imax].text) : 0;
 	lines = MIN(lines, i);
 }
 
@@ -684,7 +655,7 @@ setup(void)
 		/* no focused window is on screen, so use pointer location instead */
 		if (mon < 0 && !area && XQueryPointer(dpy, root, &dw, &dw, &x, &y, &di, &di, &du))
 			for (i = 0; i < n; i++)
-				if (INTERSECT(x, y, 1, 1, info[i]))
+				if (INTERSECT(x, y, 1, 1, info[i]) != 0)
 					break;
 
 		x = info[i].x_org;
@@ -702,7 +673,7 @@ setup(void)
 		mw = wa.width;
 	}
 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
-	inputw = MIN(inputw, mw/3);
+	inputw = mw / 3; /* input width: ~33% of monitor width */
 	match();
 
 	/* create menu window */
@@ -739,9 +710,8 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
-	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
-	exit(1);
+	die("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+	    "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]");
 }
 
 int
@@ -765,13 +735,9 @@ main(int argc, char *argv[])
 		} else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */
-		else if (!strcmp(argv[i], "-g")) {   /* number of columns in grid */
-			columns = atoi(argv[++i]);
-			if (lines == 0) lines = 1;
-		} else if (!strcmp(argv[i], "-l")) { /* number of lines in grid */
+		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
 			lines = atoi(argv[++i]);
-			if (columns == 0) columns = 1;
-		} else if (!strcmp(argv[i], "-m"))
+		else if (!strcmp(argv[i], "-m"))
 			mon = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-p"))   /* adds prompt to left of input field */
 			prompt = argv[++i];
