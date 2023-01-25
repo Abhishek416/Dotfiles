@@ -94,7 +94,7 @@ volume_alsa() {
 }
 
 clock() {
-	dte=$(date +"%D")
+	dte=$(date +"%a, %d %b")
 	time=$(date +"%I:%M")
 
 	echo " $dte  $time"
@@ -108,7 +108,7 @@ battery() {
 
 main() {
 	while true; do
-    xsetroot -name " $(usbmon) $(network)| $(cpu)| $(ram)| $(volume_alsa)| $(battery)| $(clock)"
+    xsetroot -name " $(usbmon) $(network)  $(cpu)  $(ram)  $(volume_alsa)  $(battery)  $(clock)"
 		sleep 1
 	done
 }
