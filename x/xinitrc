@@ -35,7 +35,6 @@ fi
 [ -f /etc/xprofile ] && source /etc/xprofile
 [ -f ~/.config/x/xprofile ] && source ~/.config/x/xprofile
 
-xwallpaper --zoom ~/pics/wall1/a-17.png
 # while true; do
 	# log stderror to a file
 	# dwm 2> ~/.dwm.log
