@@ -1,0 +1,38 @@
+ls
+: 1674743076:0;cd .config/zsh
+: 1674743078:0;lvim
+cd .local/share/zap/plugins
+ls
+cd supercharge
+ls
+lvim supercharge.plugin.zsh
+: 1674743865:0;ls
+: 1674744076:0;lslkasdjf
+: 1674744133:0;ranger
+: 1674744197:0;ls
+: 1674744208:0;lvim fzf.plugin.zsh
+: 1674744993:0;ls
+: 1674745294:0;nvim
+: 1674745481:0;ls
+: 1674745482:0;ls -a
+: 1674745692:0;ls
+: 1674745703:0;rm f-r plugins/zap-prompt
+: 1674745707:0;rm -rf plugins/zap-prompt
+: 1674745709:0;ls
+: 1674745723:0;cd .config/zsh
+: 1674745724:0;ls
+: 1674745725:0;cd plugins
+: 1674745725:0;ls
+: 1674745727:0;cd zsh-autosuggestions
+: 1674745728:0;ls
+: 1674745746:0;less INSTALL.md
+: 1674745767:0;ls
+: 1674745778:0;cd ..
+: 1674745779:0;ls
+: 1674745782:0;cd ..
+: 1674745783:0;ls
+: 1674745847:0;cd
+: 1674745849:0;cd Repos/dotfiles
+: 1674745850:0;ls
+: 1674745857:0;rm -rf zsh
+: 1674745864:0;cp -r ~/.config/zsh .

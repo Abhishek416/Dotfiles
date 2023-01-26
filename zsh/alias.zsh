@@ -13,6 +13,7 @@ alias installed="pacman -Qe | cut -d' ' -f1 | fzf --multi --preview 'pacman -Qi 
 # vim
 alias v='vim'
 alias n="nvim"
+alias l="lvim"
 
 alias wget="wget --no-hsts"
 
@@ -42,9 +43,9 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # confirm before overwriting something
-alias rm='trash -i'
-alias cp='/usr/local/bin/cp -giR'
-alias mv='/usr/local/bin/mv -gi'
+# alias rm='trash -i'
+# alias cp='/usr/local/bin/cp -giR'
+# alias mv='/usr/local/bin/mv -gi'
 
 alias ls='ls --color=auto'
 alias ll='ls -Sal'
