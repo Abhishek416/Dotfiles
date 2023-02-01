@@ -20,12 +20,13 @@ fsmon() {
 	HOMEPART=$(df -h | awk '/\/home/ { print $3}')
 	SWAPPART=$(cat /proc/swaps | awk '/\// { print $4 }')
 
-	echo "   $ROOTPART   $HOMEPART    $SWAPPART"
+	echo "  $ROOTPART   $HOMEPART    $SWAPPART"
 }
 
 ram() {
 	mem=$(free -h | awk '/Mem:/ { print $3 }' | cut -f1 -d 'i')
-	echo ﬙ "$mem"
+	echo  " $mem"
+	# echo ﬙ "$mem"
 }
 
 cpu() {
@@ -35,7 +36,8 @@ cpu() {
 	read -r cpu a b c idle rest < /proc/stat
 	total=$((a+b+c+idle))
 	cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-	echo   "$cpu"%
+	echo 󰻠 " $cpu"%
+	# echo  󰻠 "$cpu"%
 }
 
 network() {
@@ -43,8 +45,10 @@ network() {
 
 	if [ -z "$conntype" ]; then
 		echo "睊 down"
+		echo "睊 down"
 	elif [ "$conntype" = "e" ]; then
-		echo "直 up"
+		echo "  up"
+		# echo "直 up"
 	elif [ "$conntype" = "w" ]; then
 		echo "  up"
 	fi
@@ -84,11 +88,14 @@ volume_alsa() {
 		echo "婢 muted"
 	else
 		if [ "$vol" -ge 65 ]; then
-			echo " $vol%"
+			echo "  $vol%"
+			# echo "  $vol%"
 		elif [ "$vol" -ge 40 ]; then
-			echo "奔 $vol%"
+			echo "󰕾  $vol%"
+			# echo "奔 $vol%"
 		elif [ "$vol" -ge 0 ]; then
-			echo " $vol%"
+			echo "󰖁  $vol%"
+			# echo "  $vol%"
 		fi
 	fi
 }
@@ -97,13 +104,15 @@ clock() {
 	dte=$(date +"%a, %d %b")
 	time=$(date +"%I:%M")
 
-	echo " $dte  $time"
+	echo "  $dte  󰥔  $time"
+	# echo "  $dte 󰥔 $time"
 }
 
 battery() {
 	bat=$(cat "/sys/class/power_supply/BAT1/capacity")
   stat=$(cat "/sys/class/power_supply/BAT1/status")
-	echo   " $bat" "$stat"
+	# echo   " $bat" "$stat"
+	echo  "  $bat" "$stat"
 }
 
 main() {
